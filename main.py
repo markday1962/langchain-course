@@ -21,17 +21,21 @@ Musk's political activities, views, and statements have made him a polarizing fi
     """
 
     summary_template = """
-    given the information {information} about a person I want you to create:
-    1. A short summary
-    2. two interesting facts about them
+    Given the following information about a person:
+
+    {information}
+
+    Create:
+    1. A short summary of this person
+    2. Two interesting facts about them
     """
 
     summary_prompt_template = PromptTemplate(
         input_variables=["information"], template=summary_template
     )
 
-    # llm = ChatOllama(temperature=0, model="gemma3:270m")
-    llm = ChatOpenAI(temperature=0, model="gpt-5")
+    llm = ChatOllama(temperature=0, model="gemma3:12b")
+    #llm = ChatOpenAI(temperature=0, model="gpt-5")
     chain = summary_prompt_template | llm
 
     response = chain.invoke(input={"information": information})
